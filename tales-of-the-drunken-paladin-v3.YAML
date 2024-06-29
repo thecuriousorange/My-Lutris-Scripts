@@ -1,53 +1,53 @@
-game:
-  title: Tales of the Drunken Paladin
-  version: 3.0
-  runner: wine
-
-files:
-  setup:
-    url: http://www.drunkenpaladin.com/Tales%20of%20the%20Drunken%20Paladin%20V3.zip
-  rtp:
-    url: https://dl.komodo.jp/rpgmakerweb/run-time-packages/RPGVXAce_RTP.zip
-
-wine:
-  version: "System"
-  system: true
-  dxvk: true
-
-installer:
+name: Tales of the Drunken Paladin Version III
+game_slug: tales-of-the-drunken-paladin-version-3
+version: Installer
+slug: tales-of-the-drunken-paladin-version-3
+runner: wine
+script:
+  files:
+    - game_archive: http://www.drunkenpaladin.com/Tales%20of%20the%20Drunken%20Paladin%20V3.zip
+    - rtp_archive: https://archive.org/download/rpgvxace-rtp/RPGVXAce_RTP.zip
+  game:
+    exe: drive_c/Tales of The Drunken Paladin/game.exe
+    prefix: $GAMEDIR
+  installer:
   - extract:
-      file: setup
-      dst: $CACHE
-  - move:
-      src: $CACHE/TalesOfTheDrunkenPaladin
-      dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
+      description: Extracting Game files.
+      dst: $CACHE/tdp
+      file: Tales of the Drunken Paladin V3
   - extract:
-      file: rtp
-      dst: $CACHE
-  - execute:
-      file: $CACHE/RPGVXAce_RTP/setup.exe
-      args: /S
+      description: Extracting RTP installer.
+      dst: $CACHE/rtp
+      file: RPGVXAce_RTP
+  - copy:
+      description: Installing Game Files.
+      dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin/
+      src: $CACHE/tdp/Tales of The Drunken Paladin V3/
   - task:
-      description: Installing additional Windows components
-      name: winetricks
+      args: /i "$CACHE/rtp/RPGVXAce_RTP/Setup.exe"
+      name: wineexec
       prefix: $GAMEDIR
-      verbs:
-        - dmusic
-        - dsound
-        - gmsls
+  wine:
+    dxvk: true
 
-system:
-  env:
-    WINEARCH: win64
-    WINEPREFIX: $GAMEDIR
-
-  pre_install:
-    - mkdir -p "$GAMEDIR/drive_c"
-
-  post_install:
-    - winecfg
-    - wine reg add 'HKCU\Software\Wine\X11 Driver' /v 'UseTakeFocus' /t REG_SZ /d 'N' /f
-
-scripts:
-  run:
-    - wine "$GAMEDIR/drive_c/Tales of The Drunken Paladin/game.exe"
+    installer:
+      - extract:
+          file: setup
+          dst: $CACHE
+      - move:
+          src: $CACHE/TalesOfTheDrunkenPaladin
+          dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
+      - extract:
+          file: rtp
+          dst: $CACHE
+      - execute:
+          file: $CACHE/RPGVXAce_RTP/setup.exe
+          args: /S
+      - task:
+          description: Installing additional Windows components
+          name: winetricks
+          prefix: $GAMEDIR
+          verbs:
+            - dmusic
+            - dsound
+            - gmsls
