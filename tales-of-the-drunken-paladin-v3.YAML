@@ -1,12 +1,12 @@
 name: Tales of the Drunken Paladin Version III
 game_slug: tales-of-the-drunken-paladin-version-3
-version: Installer
+version: Once this installer is finished, right click the tales of the drunken paladin, choose configure, and toggle dgvoodoo2 to enabled.
 slug: tales-of-the-drunken-paladin-version-3
 runner: wine
 script:
   files:
     - game_archive: http://www.drunkenpaladin.com/Tales%20of%20the%20Drunken%20Paladin%20V3.zip
-    - rtp_archive: https://archive.org/download/rpgvxace-rtp/RPGVXAce_RTP.zip
+    - rtp_archive: https://archive.org/download/RPG_Maker_RTP_Collection/English/RTP%20VX%20%28RGSS2%29.exe
   game:
     exe: drive_c/Tales of The Drunken Paladin/game.exe
     prefix: $GAMEDIR
@@ -23,19 +23,28 @@ script:
       description: Installing Game Files.
       dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin/
       src: $CACHE/tdp/
+  - copy:
+      description: Installing rtp stage 1.
+      dst: $GAMEDIR/drive_c/rtp/
+      src: $CACHE/rtp/
   - task:
-      args: /i "$CACHE/rtp/Setup.exe"
-      executable: Setup.exe
-      name: wineexec
-      prefix: $GAMEDIR
-  - task:
-      description: Installing additional Windows components
+      app: dmusic
+      description: "Winetricks: Installing dmusic"
       name: winetricks
-      prefix: $GAMEDIR
-      verbs:
-        - dmusic
-        - dsound
-        - gmsls
+  - task:
+      app: dsound
+      description: "Winetricks: Installing dsound"
+      name: winetricks
+  - task:
+      app: gmdls
+      description: "Winetricks: Installing gmsls"
+      name: winetricks
+  - task:
+      arch: win64
+      blocking: true
+      description: installing rtp stage 2 please complete the installer.
+      name: wineexec
+      executable: drive_c/rtp/setup.exe
   system:
     env:
       WINEARCH: win64
