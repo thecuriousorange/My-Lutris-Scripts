@@ -35,4 +35,8 @@ script:
       verbs:
         - dmusic
         - dsound
-        - gmsls  
+        - gmsls
+  system:
+    env:
+      WINEARCH: win64
+      WINEPREFIX: $GAMEDIR
