@@ -28,27 +28,11 @@ script:
       executable: Setup.exe
       name: wineexec
       prefix: $GAMEDIR
-  wine:
-    dxvk: true
-
-    installer:
-      - extract:
-          file: setup
-          dst: $CACHE
-      - move:
-          src: $CACHE/TalesOfTheDrunkenPaladin
-          dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
-      - extract:
-          file: rtp
-          dst: $CACHE
-      - execute:
-          file: $CACHE/RPGVXAce_RTP/setup.exe
-          args: /S
-      - task:
-          description: Installing additional Windows components
-          name: winetricks
-          prefix: $GAMEDIR
-          verbs:
-            - dmusic
-            - dsound
-            - gmsls
+  - task:
+      description: Installing additional Windows components
+      name: winetricks
+      prefix: $GAMEDIR
+      verbs:
+        - dmusic
+        - dsound
+        - gmsls  
