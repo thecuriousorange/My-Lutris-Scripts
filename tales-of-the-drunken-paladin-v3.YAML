@@ -1,6 +1,6 @@
 name: Tales of the Drunken Paladin Version III
 game_slug: tales-of-the-drunken-paladin-version-3
-version: Once this installer is finished, right click the tales of the drunken paladin, choose configure, and toggle dgvoodoo2 to enabled.
+version: Once this installer is finished, right click the tales of the drunken paladin, choose configure, choose runner options, and toggle dgvoodoo2 to enabled.
 slug: tales-of-the-drunken-paladin-version-3
 runner: wine
 script:
