@@ -1,6 +1,6 @@
 name: Tales of the Drunken Paladin Version III
 game_slug: tales-of-the-drunken-paladin-version-3
-version: Once this installer is finished, right click the tales of the drunken paladin, choose configure, choose runner options, and toggle dgvoodoo2 to enabled, then click save.
+version: Installer
 slug: tales-of-the-drunken-paladin-version-3
 runner: wine
 script:
@@ -45,6 +45,8 @@ script:
       description: installing rtp stage 2 please complete the installer.
       name: wineexec
       executable: drive_c/rtp/setup.exe
+  wine:
+    dgvoodoo2: true
   system:
     env:
       WINEARCH: win64
