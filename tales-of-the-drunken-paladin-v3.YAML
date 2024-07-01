@@ -14,17 +14,18 @@ script:
   - extract:
       description: Extracting Game files.
       dst: $CACHE/tdp
-      file: Tales of the Drunken Paladin V3
+      file: game_archive
   - extract:
       description: Extracting RTP installer.
       dst: $CACHE/rtp
-      file: RPGVXAce_RTP
+      file: rtp_archive
   - copy:
       description: Installing Game Files.
       dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin/
-      src: $CACHE/tdp/Tales of The Drunken Paladin V3/
+      src: $CACHE/tdp/
   - task:
-      args: /i "$CACHE/rtp/RPGVXAce_RTP/Setup.exe"
+      args: /i "$CACHE/rtp/Setup.exe"
+      executable: Setup.exe
       name: wineexec
       prefix: $GAMEDIR
   wine:
