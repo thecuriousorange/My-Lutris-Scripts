@@ -1,7 +1,7 @@
 name: Tales of the Drunken Paladin Version III
-game_slug: tales-of-the-drunken-paladin-version-3
+game_slug: tales-of-the-drunken-paladin-version-iii
 version: Installer
-slug: tales-of-the-drunken-paladin-version-3
+slug: tales-of-the-drunken-paladin-version-iii
 runner: wine
 script:
   files:
@@ -11,24 +11,28 @@ script:
     exe: drive_c/Tales of The Drunken Paladin/game.exe
     prefix: $GAMEDIR
   installer:
+  - task:
+      arch: win64
+      description: Preparing wineprefix...
+      name: create_prefix
+      prefix: $GAMEDIR
   - extract:
       description: Extracting Game files.
-      dst: $CACHE/tdp
+      dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
       file: game_archive
-
-  - copy:
-      description: Installing Game Files.
-      dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin/
-      src: $CACHE/tdp/
   - task:
       app: dmusic dsound gmdls
       description: "Winetricks: Installing dependencies"
       name: winetricks
+  - extract:
+      description: installing rtp
+      dst: $GAMEDIR/drive_c/enterbrain/RGSS2/RPGVX
+      file: rtp_archive
   - task:
-      arch: win64
-      blocking: true
-      description: installing rtp please complete the installer with default options.
-      name: wineexec
-      executable: rtp_archive
-  wine:
+      name: set_regedit
+      path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Enterbrain\RGSS2\RTP
+      key: RPGVX
+      value: 'C:\\Enterbrain\\RGSS2\\RPGVX'
+      type: REG_SZ
+wine:
     dgvoodoo2: true
