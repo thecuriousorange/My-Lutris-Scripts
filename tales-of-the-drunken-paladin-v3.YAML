@@ -15,39 +15,20 @@ script:
       description: Extracting Game files.
       dst: $CACHE/tdp
       file: game_archive
-  - extract:
-      description: Extracting RTP installer.
-      dst: $CACHE/rtp
-      file: rtp_archive
+
   - copy:
       description: Installing Game Files.
       dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin/
       src: $CACHE/tdp/
-  - copy:
-      description: Installing rtp stage 1.
-      dst: $GAMEDIR/drive_c/rtp/
-      src: $CACHE/rtp/
   - task:
-      app: dmusic
-      description: "Winetricks: Installing dmusic"
-      name: winetricks
-  - task:
-      app: dsound
-      description: "Winetricks: Installing dsound"
-      name: winetricks
-  - task:
-      app: gmdls
-      description: "Winetricks: Installing gmsls"
+      app: dmusic dsound gmdls
+      description: "Winetricks: Installing dependencies"
       name: winetricks
   - task:
       arch: win64
       blocking: true
-      description: installing rtp stage 2 please complete the installer.
+      description: installing rtp please complete the installer with default options.
       name: wineexec
-      executable: drive_c/rtp/setup.exe
+      executable: rtp_archive
   wine:
     dgvoodoo2: true
-  system:
-    env:
-      WINEARCH: win64
-      WINEPREFIX: $GAMEDIR
