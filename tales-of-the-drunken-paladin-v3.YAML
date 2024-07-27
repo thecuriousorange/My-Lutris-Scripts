@@ -24,7 +24,9 @@ script:
       dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
       file: game_archive
   - task:
-      app: dmusic dsound gmdls
+      app: wsh57 wmp9 dsound vcrun2008 dirac l3codecx ffdshow icodecs cinepak vcrun6
+      dmband dmcompos dmime dmloader dmscript dmstyle dmsynth dmusic dmusic32 dswave
+      directmusic gmdls
       description: 'Winetricks: Installing dependencies'
       name: winetricks
   - extract:
