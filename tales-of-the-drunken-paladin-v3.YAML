@@ -1,15 +1,12 @@
-description: ''
+name: Tales of the Drunken Paladin Version III
 game_slug: tales-of-the-drunken-paladin-version-iii
-gogslug: ''
-humblestoreid: ''
-installer_slug: tales-of-the-drunken-paladin-v3
-name: Tales of The Drunken Paladin Version III
-notes: ''
+version: Installer
+slug: tales-of-the-drunken-paladin-version-iii
 runner: wine
 script:
   files:
-  - game_archive: http://www.drunkenpaladin.com/Tales%20of%20the%20Drunken%20Paladin%20V3.zip
-  - rtp_archive: https://archive.org/download/RPG_Maker_RTP_Collection/English/RTP%20VX%20%28RGSS2%29.exe
+    - game_archive: http://www.drunkenpaladin.com/Tales%20of%20the%20Drunken%20Paladin%20V3.zip
+    - rtp_archive: https://archive.org/download/RPG_Maker_RTP_Collection/English/RTP%20VX%20%28RGSS2%29.exe
   game:
     exe: drive_c/Tales of The Drunken Paladin/game.exe
     prefix: $GAMEDIR
@@ -24,22 +21,18 @@ script:
       dst: $GAMEDIR/drive_c/Tales of The Drunken Paladin
       file: game_archive
   - task:
-      app: wsh57 wmp9 dsound vcrun2008 dirac l3codecx ffdshow icodecs cinepak vcrun6
-      dmband dmcompos dmime dmloader dmscript dmstyle dmsynth dmusic dmusic32 dswave
-      directmusic gmdls
-      description: 'Winetricks: Installing dependencies'
+      app: dmusic dsound gmdls directmusic
+      description: "Winetricks: Installing dependencies"
       name: winetricks
   - extract:
       description: installing rtp
       dst: $GAMEDIR/drive_c/enterbrain/RGSS2/RPGVX
       file: rtp_archive
   - task:
-      key: RPGVX
       name: set_regedit
       path: HKEY_LOCAL_MACHINE\Software\Wow6432Node\Enterbrain\RGSS2\RTP
+      key: RPGVX
+      value: 'C:\\Enterbrain\\RGSS2\\RPGVX'
       type: REG_SZ
-      value: C:\\Enterbrain\\RGSS2\\RPGVX
-slug: tales-of-the-drunken-paladin-v3
-steamid: null
-version: v3
-year: 2017
+wine:
+    dgvoodoo2: true
